@@ -1,0 +1,145 @@
+RUBY
+
+1. Give a regular expression that detects hexadecimal numbers in a text.
+For example, ‘0x0f4’, ‘0acdadecf822eeff32aca5830e438cb54aa722e3’, ‘8BADF00D’ should be detected.
+
+/(#|&H|0x){0,1}([a-fA-F0-9]+/
+
+(#|&H|0x){0,1} Vérifie la présence de # ou &H ou 0x en début d'expression.
+//NB: Ou l'absence avec le zéro.
+
+([a-fA-F0-9]+
+Test la présence d'un caractére hexadécimal et match de 1 à plus l'infinie.
+
+source : http://regexr.com/
+
+2.Here is the pseudo code of a function that is defined recursively:
+-  f(0) = 1;
+-  f(1) = 3;
+-  f(n)= 3 * f(n-1) - f(n-2);
+Provide an implementation for ‘f’. Bonus points for a non recursive implementation.
+
+>def function(number)
+
+  if number == 0
+    result = 0
+
+  elsif number == 1
+    result = 3
+
+  elsif number > 0
+    result = 3 * function( number - 1) - function( number - 2)
+
+  elsif // Si le nombre est négatif la fonction n'est pas définie.
+    result = nil
+  end
+
+  return result
+end
+
+// Sorry for the recursive implementation
+
+RoR
+
+1. Write a CREATE TABLE query for a table storing information on users. It will store:
+  - id,
+  - firstname,
+  - lastname,
+  - gender,
+  - email,
+  - created_at
+
+>
+
+CREATE TABLE users
+(
+  id INT PRIMARY KEY NOT NULL,
+  firstname VARCHAR(100),
+  lastname VARCHAR(255),
+  gender VARCHAR(5),
+  email VARCHAR(255),
+  created_at DATE
+)
+
+
+2. Write a query on the previous table that lists the 10 most recently added users.
+
+Source : http://sql.sh/cours/order-by
+
+> SELECT *
+FROM users
+ORDER BY created_at DESC
+LIMIT 10
+
+3. How would you do to check if a user has signed up (with devise gem) in the last 24 hours and if so redirect this user to "google.fr", before every action of every controller?
+
+> Never face this problem , Will probably look more deeeply this page.
+https://github.com/plataformatec/devise/wiki/How-To:-redirect-to-a-specific-page-on-successful-sign-in
+
+
+4. In your app, you have a header in your layout.html.erb. You want for this header a white background on a specific action of a specific controller, and a black background in every other case. How would you do?
+
+  bg : background
+
+####################### Solution 1
+
+  1/ Create the corresponding css class.
+
+  .header-bg-normal{
+    ...
+    backgroud-color = normal;
+  }
+
+  .header-bg-white{
+    ... //
+    backgroud-color = white;
+  }
+
+
+  2/ Créer une variable dans le controller nommé @bg_white?
+    et executer @bg_white? = true
+
+  3/ Ajouter une ternaire dans la vue pour aller chercher la bonne classe.
+
+    <div class = "<%= @bg_white ? "bg_white" : "bg-normal" %>">
+      ......
+    </div>
+
+    // NB: si @bg_white = nil la solution fonctionne toujours.
+
+Discution :
+
+  Avantage : C'est simple et efficace.
+  Inconvénient : Duplication de code css dans header-bg-white et header-bg-normal
+
+
+####################### Solution 2
+
+1/ Create the corresponding css class.
+    .header{
+      ...
+    }
+
+    .bg-white{
+      backgroud-color = white;
+    }
+
+2/ Créer une variable dans le controller nommé @bg_white?
+      et executer @bg_white? = true
+
+3/ Créer une variable dans le controller nommé @bg_white?
+      et executer @bg_white? = true
+
+    <div class = "<%= @bg_white ? "header" : "#{'header' + bg-white }" %>">
+      ......
+    </div>
+
+
+// Le moteur de rendu va overider le  background color
+    dans la class css header car bg-white est situé aprés.
+
+    Discution :
+
+      Avantage : Plus propre, pas de duplication de code.
+      Inconvénient : Si on veux continuer à combiner, il va falloir utiliser
+      un helper.

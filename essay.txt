@@ -1,0 +1,64 @@
+  Ruby on Rails Essay
+
+We want to create an app which lets students take driving lessons with teachers, on specified meeting points.
+
+1. The teachers can give lessons on one or more meeting points.
+2. The teachers can create availabilities (Ex: April, 15th 2017, from 8am to 11am and from 3pm to 6pm).
+3. Lessons last 1 or 2 hours.
+4. The students can list teacher availabilities for a specific meeting point and lesson duration (1 or 2 hours).
+5. The students can book a lesson with a teacher at specific meeting point and datetime, for a specific time.
+6. The teachers can accept or decline lessons bookings.
+
+Describe the data model you’d use for this app. What are the key models? What are their attributes? How will your code use them?
+
+>
+
+
+Un bon schéma vaut mieux qu'un long discours. (Cf photo)
+
+J'ai changé d'avis sur ma base voilà l'une de mes réflection concernant les meetings
+points.
+
+######
+C'est assez discutable mais,
+J'ai décidé d'assumer qu'un meeting point correspond à un et à 1 seul professeur.
+=> C'est à dire que 2 meetings points ayant la méme adresse et appartenant à 2 professeurs différents
+correspondent à 2 lignes dans la base.
+
+Pk:
+  Aucun besoin à mon sens d'agréger les données par meeting point.
+  Créer une table de jointure réduiré assez peu le nombre de meeting point.
+
+NB: => Ca veux dire que l'étudiant fait une recherche par adresse.
+Un peu comme air b&b et non pas dans une liste close.
+#####
+
+J'ai décidé de ne pas enregistré la durée des lessons mais une date de début une
+date de fin.
+
+PK => Permet de facilement faire des comparaisons et de ne pas à avoir à calculer
+la date de fin de lesson.
+
+Plus flexible permet à terme de crééer autant de durée que l'on souhaite
+
+
+
+5) Recherche des disponibilités.
+
+Partir du model {teacher-place} Et faire une requéte qui
+
+1) Sélectionne les bonnes place.
+2) Sélectionne les disponiblités.
+Dans ce sens !!!!!!!!!!!! en tous cas quand on aura des millions de lessons
+ce sera indispensable.
+
+Choix technique : /
+Lorsqu'une lesson est booké on suprimme la disponibilité correspondante.
+Soit lorsqu'on  recherche les disponibilités ont prend garde à vérifié qu'une
+lesson n'a pas été booké à ce moment.
+
+
+6)
+J'ai décidé que les lessons auront un statut. Refusé/accepté
+L'idéal étant une contrainte dans le model teacher empéchant d'avoir 2 lessons
+au même moment.

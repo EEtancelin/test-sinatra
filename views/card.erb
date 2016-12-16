@@ -1,0 +1,33 @@
+<div class="card">
+  <img class="card-img-top photo" src="<%= @post[:photo]%>" alt="Card image cap">
+  <div class="card-block">
+    <h4 class="card-title"><%= @post[:title]%></h4>
+    <div class="card-content card-header">
+      <p class="card-text"> <%= @post[:content]%> </p>
+      <div class="card-rating">
+        <div class="rate">
+
+            <%@post[:rating].to_i.times do %>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <% end %>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- //Comments -->
+
+
+    <ul class="list-group list-group-flush comments">
+      <%COMMENTS[1].each do |comment|%>
+      <div class="">
+        <li class="comments list-group-item text-left">
+          <img src="http://lorempixel.com/400/200/people/" alt="user" class="avatar">
+          <%= comment %>
+        </li>
+      </div>
+      <%end %>
+    </ul>
+      <a href="https://www.envoituresimone.com/" class="btn btn-primary cta ">Go !</a>
+  </div>
+</div>
