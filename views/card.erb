@@ -7,6 +7,10 @@
       <div class="card-rating">
         <div class="rate">
 
+          <%(5-@post[:rating].to_i).times do %>
+            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+          <% end %>
+
             <%@post[:rating].to_i.times do %>
               <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
             <% end %>

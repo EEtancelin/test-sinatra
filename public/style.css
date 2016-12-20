@@ -63,3 +63,9 @@
 .cta{
   margin: 5px;
 }
+
+.vertical-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
