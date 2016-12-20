@@ -19,25 +19,67 @@ source : http://regexr.com/
 -  f(n)= 3 * f(n-1) - f(n-2);
 Provide an implementation for ‘f’. Bonus points for a non recursive implementation.
 
+
+#Solution 1 Recursive implementation
 >def function(number)
+  number = Integer(number) rescue false //Cast the number to an integer if
+  //possible.
 
-  if number == 0
+  if !number.is_a?(Integer) || number < 0
+    result = nil
+  elsif number == 0
     result = 0
-
   elsif number == 1
     result = 3
 
-  elsif number > 0
+  else
     result = 3 * function( number - 1) - function( number - 2)
-
-  elsif // Si le nombre est négatif la fonction n'est pas définie.
-    result = nil
   end
 
   return result
 end
+#######################################################################
+// Solution 2
+Save the result in array for quicker access if function is call on the same number.
 
-// Sorry for the recursive implementation
+@@function_result=[]
+
+def function(number)
+  number = Integer(number) rescue false //Cast the number to an integer if
+  //possible.
+
+  if !number.is_a?(Integer) || number < 0
+    result = nil
+  else
+    result =   @@function_result[number] || calculate(@@function_result, number)
+  end
+end
+
+def calculate[results,number]
+  //Calculate the function and store the result
+  // if the called number is under 1 function will be called with a negative number
+  //and an error will be raise.
+
+  @@function_result[number] = 3 * function( number - 1) - function( number - 2)
+  return @@function_result[number]
+end
+
+// Solution 3 You do MATH !!!.
+// https://en.wikipedia.org/wiki/Recurrence_relation#Relationship_to_difference_equations_narrowly_defined
+//GOTO -> Solving homogeneous linear recurrence relations with constant coefficients
+:-)
+
+function(number)
+  // Assumming n is a positive integer
+
+  return (
+    (1/10)*(
+      (5-3*sqrt(5)) * ((1/2)*(3-sqrt(5))**number)
+      +
+      (5+3*sqrt(5)) *((1/2)* (3+sqrt(5))**number)
+    )
+)
+end
 
 RoR
 
